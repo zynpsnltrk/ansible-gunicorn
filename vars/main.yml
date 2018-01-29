@@ -1,0 +1,25 @@
+---
+log_files:
+  - gunicorn.err.log
+  - gunicorn.out.log
+
+apt_packages:
+  - python 
+  - python-pip
+  - supervisor
+  - logrotate
+  - python3.5
+  - python3.5-dev
+  - python-setuptools
+  
+#python2_apt_packages:
+#  - python
+#  - python-dev
+#  - python-setuptools
+#  - gettext
+#  - python-lxml
+#  - python-pip
+#  - python-psycopg2
+#  - libpq-dev
+#  - libffi-dev
+#  - libgeos-dev

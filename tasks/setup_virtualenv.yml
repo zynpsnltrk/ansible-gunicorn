@@ -1,0 +1,19 @@
+---
+- name: Install virtualenv
+  pip: 
+    name: virtualenv 
+    state: latest
+
+- name: Manually create the initial virtualenv
+  command: virtualenv {{ virtualenv_path }} -p {{ python_version }} creates={{ virtualenv_path }}
+
+- name: Check that the requirements exists
+  stat:
+    path: "{{ virtualenv_path }}/httpdocs/{{ application_name }}/requirements.txt"
+  register: stat_result
+
+- name: Install requirements, if requirements.txt exist
+  pip:
+    requirements: "{{ virtualenv_path }}/httpdocs/{{ application_name }}/requirements.txt"
+    virtualenv: "{{ virtualenv_path }}"
+  when: stat_result.stat.exists == True

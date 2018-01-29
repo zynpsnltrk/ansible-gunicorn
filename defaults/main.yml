@@ -1,0 +1,45 @@
+---
+application_name: my_app
+virtualenv_path: /var/www/{{ settings_environment }}/{{ application_name }}
+settings_environment: production
+python_version: python3.5
+
+# gunicorn settings
+gunicorn_app_name: "my_app"
+gunicorn_conf_directory: /etc/supervisor/conf.d
+gunicorn_version: 19.6.0
+gunicorn_bind: "unix:/tmp/{{ application_name }}.sock"
+gunicorn_workers: "{% if settings_environment == 'production' %} 120 {% else %} 16 {% endif %}"
+gunicorn_keepalive: "0"
+gunicorn_max_requests: "128"
+gunicorn_timeout: "90"
+gunicorn_worker_class: "sync"
+gunicorn_user: "www-data"
+gunicorn_group: "www-data"
+gunicorn_access_log: "-"
+gunicorn_error_log: "-"
+gunicorn_raw_env: "FOO=1"
+#django_settings_module: "{{ application_name }}.settings.{{ settings_environment }}"
+#gunicorn_raw_env: {% if settings_environment == "staging" %}
+#  "DJANGO_SETTINGS_MODULE={{ django_settings_module }}.staging",
+#  "NEW_RELIC_CONFIG_FILE={{ newrelic_config_file }}",
+#]
+#newrelic_config_file: "/var/www/{{ settings_environment }}/{{ application_name }}/httpdocs/{{ application_name }}/newrelic.ini"
+
+#supervisor settings
+supervisor_log_dir: "/var/log/supervisor/gunicorn-{{ application_name }}"
+supervisor_numprocs: "1"
+supervisor_numprocs_start: "0"
+supervisor_priority: "999"
+supervisor_autostart: "true"
+supervisor_autorestart: "unexpected"
+supervisor_startsecs: "1"
+supervisor_startretries : "3"
+supervisor_exitcodes: "0,2"
+supervisor_stopsignal: "TERM"
+supervisor_stopwaitsecs: "10"
+supervisor_redirect_stderr: "false"
+
+#logrotation settings
+supervisor_log_rotation_interval: monthly
+supervisor_log_rotate_count: 12

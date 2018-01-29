@@ -1,0 +1,9 @@
+{{ supervisor_log_dir }}/*.log {
+    {{ supervisor_log_rotation_interval }}
+    rotate {{ supervisor_log_rotate_count }}
+    copytruncate
+    compress
+    delaycompress
+    missingok
+    notifempty
+  }

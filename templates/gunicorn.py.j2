@@ -1,0 +1,12 @@
+bind="{{ gunicorn_bind }}"
+workers="{{ gunicorn_workers }}
+keepalive="{{ gunicorn_keepalive }}"
+worker_class="{{ gunicorn_worker_class }}"
+max_requests="{{ gunicorn_max_requests }}"
+raw_env="{{ gunicorn_raw_env }}"
+user="{{ gunicorn_user }}"
+group="{{ gunicorn_group }}"
+proc_name="gunicorn-{{ application_name }}"
+timeout="{{ gunicorn_timeout }}"
+gunicorn_access_log="{{ gunicorn_access_log }}"
+gunicorn_error_log="{{ gunicorn_error_log }}"

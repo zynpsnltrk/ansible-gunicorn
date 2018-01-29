@@ -1,0 +1,15 @@
+[program:gunicorn-{{ gunicorn_app_name }}]
+command={{ virtualenv_path }}/bin/gunicorn -c /etc/gunicorn/{{ gunicorn_app_name }}.py {{ gunicorn_app_name }}.wsgi
+numprocs={{ supervisor_numprocs }}
+numprocs_start={{ supervisor_numprocs_start }}
+priority={{ supervisor_priority }}
+autostart={{ supervisor_autostart }}
+autorestart={{ supervisor_autorestart }}
+startsecs={{ supervisor_startsecs }}
+startretries={{ supervisor_startretries }}
+exitcodes={{ supervisor_exitcodes }}
+stopsignal={{ supervisor_stopsignal }}
+stopwaitsecs={{ supervisor_stopwaitsecs }}
+redirect_stderr={{ supervisor_redirect_stderr }}
+stdout_logfile={{ supervisor_log_dir }}/gunicorn-{{ application_name }}.out.log
+stderr_logfile={{ supervisor_log_dir }}/gunicorn-{{ application_name }}.err.log

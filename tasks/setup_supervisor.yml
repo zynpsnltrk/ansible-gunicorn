@@ -1,0 +1,23 @@
+---
+- name: Create supervisor log directory
+  file: 
+    name: /var/log/supervisor/gunicorn-{{ application_name }}
+    state: directory
+
+- name: Copy the supervisor config file
+  template: 
+    src: supervisor_config.j2 
+    dest: "/etc/supervisor/conf.d/gunicorn-{{ application_name }}.conf"
+    backup: yes
+  notify: restart supervisor
+
+- name: Systemctl enable supervisor
+  shell: systemctl enable supervisor
+
+- name: Configure log rotation
+  template:
+    src: logrotate.d.j2
+    dest: /etc/logrotate.d/supervisor
+    owner: root
+    group: root
+    mode: 0644

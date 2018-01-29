@@ -1,0 +1,12 @@
+---
+- include: install_python_packages.yml
+  tags: packages
+
+- include: setup_virtualenv.yml
+  tags: virtualenv
+
+- include: setup_gunicorn.yml
+  tags: gunicorn
+
+- include: setup_supervisor.yml
+  tags: supervisor
